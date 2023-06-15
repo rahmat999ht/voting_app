@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782327443672",
+    "project_id": "voting-dcc3c",
+    "storage_bucket": "voting-dcc3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782327443672:android:b6f639a4b1a6b2234f27ad",
+        "android_client_info": {
+          "package_name": "com.yayat.voting_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782327443672-03su8d2i2sql1mrb4sgc58gj545bit18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR6PvQi6MzxmeoNGtwn1sT_Bknho8Y100"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782327443672-03su8d2i2sql1mrb4sgc58gj545bit18.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
