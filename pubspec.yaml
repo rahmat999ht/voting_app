@@ -17,6 +17,7 @@ dependencies:
   packages :
     git :
       url : https://github.com/rahmat999ht/packages.git
+  flutter_echarts: ^2.4.0
 
 dev_dependencies: 
   flutter_lints: 2.0.1

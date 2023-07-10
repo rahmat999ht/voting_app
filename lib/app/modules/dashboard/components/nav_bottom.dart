@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:voting_app/app/core/colors/colors_app.dart';
 
 class BottomNavBar extends StatelessWidget {
   final void Function(int index)? onTabChange;
@@ -34,8 +35,8 @@ class BottomNavBar extends StatelessWidget {
             iconSize: 24,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             duration: const Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.yellow.shade700,
-            color: Colors.yellow.shade700,
+            tabBackgroundColor: ColorApp.primary,
+            color: ColorApp.primary,
             tabs: const [
               GButton(
                 icon: LineIcons.home,
