@@ -8,6 +8,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -16,6 +17,7 @@ void main() async {
       title: "Application",
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: ColorApp.primary),
     ),
   );
