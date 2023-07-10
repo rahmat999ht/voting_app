@@ -8,17 +8,17 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.5
-  flutter: 
-    sdk: flutter
   firebase_core: ^2.14.0
   get_cli: ^1.8.1
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.1
-  packages :
-    git :
-      url : https://github.com/rahmat999ht/packages.git
   flutter_echarts: ^2.4.0
   cloud_firestore: ^4.8.2
+  fl_chart: 0.62.0
+  flutter: 
+    sdk: flutter
+  packages: 
+    git: https://github.com/rahmat999ht/packages.git
 
 dev_dependencies: 
   flutter_lints: 2.0.1
