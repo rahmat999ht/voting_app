@@ -54,7 +54,7 @@ class LoginView extends GetView<LoginController> {
               ButtonPrymary(
                 text: 'Login',
                 onPressed: () {},
-              )
+              ),
             ],
           ),
         ),
