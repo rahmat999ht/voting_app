@@ -18,6 +18,7 @@ dependencies:
     git :
       url : https://github.com/rahmat999ht/packages.git
   flutter_echarts: ^2.4.0
+  cloud_firestore: ^4.8.2
 
 dev_dependencies: 
   flutter_lints: 2.0.1
