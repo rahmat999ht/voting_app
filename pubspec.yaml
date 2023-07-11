@@ -19,6 +19,8 @@ dependencies:
       url : https://github.com/rahmat999ht/packages.git
   flutter_echarts: ^2.4.0
   cloud_firestore: ^4.8.2
+  flutter_portal: ^1.1.4
+  shared_preferences: ^2.2.0
 
 dev_dependencies: 
   flutter_lints: 2.0.1

@@ -2,26 +2,29 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'image_hash.dart';
-
 class CapresModel {
   String? id;
-  String? stb;
+  int? stb;
   String? noUrut;
-  ImageHash? foto;
+  // ImageHash? foto;
+  String? foto;
   String? nama;
   String? jkl;
-  String? visi;
-  String? misi;
+  String? prody;
+  List<dynamic>? visi;
+  List<dynamic>? misi;
+  String? pass;
   CapresModel({
     this.id,
-    this.stb,
-    this.noUrut,
-    this.foto,
-    this.nama,
-    this.jkl,
-    this.visi,
-    this.misi,
+    required this.stb,
+    required this.noUrut,
+    required this.foto,
+    required this.nama,
+    required this.jkl,
+    required this.prody,
+    required this.visi,
+    required this.misi,
+    required this.pass,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,26 +32,35 @@ class CapresModel {
       'id': id,
       'stb': stb,
       'noUrut': noUrut,
-      'foto': foto?.toMap(),
+      'foto': foto,
       'nama': nama,
       'jkl': jkl,
+      'prody': prody,
       'visi': visi,
       'misi': misi,
+      'pass': pass,
     };
   }
 
   factory CapresModel.fromMapById(String id, Map<String, dynamic> map) {
     return CapresModel(
       id: id,
-      stb: map['stb'] != null ? map['stb'] as String : null,
+      stb: map['stb'] != null ? map['stb'] as int : null,
       noUrut: map['noUrut'] != null ? map['noUrut'] as String : null,
-      foto: map['foto'] != null
-          ? ImageHash.fromMap(map['foto'] as Map<String, dynamic>)
-          : null,
+      // foto: map['foto'] != null
+      //     ? ImageHash.fromMap(map['foto'] as Map<String, dynamic>)
+      //     : null,
+      foto: map['foto'] != null ? map['foto'] as String : null,
       nama: map['nama'] != null ? map['nama'] as String : null,
       jkl: map['jkl'] != null ? map['jkl'] as String : null,
-      visi: map['visi'] != null ? map['visi'] as String : null,
-      misi: map['misi'] != null ? map['misi'] as String : null,
+      prody: map['prody'] != null ? map['prody'] as String : null,
+      visi: map['visi'] != null
+          ? List<dynamic>.from((map['visi'] as List<dynamic>).cast<String>())
+          : null,
+      misi: map['misi'] != null
+          ? List<dynamic>.from((map['misi'] as List<dynamic>).cast<String>())
+          : null,
+      pass: map['pass'] != null ? map['pass'] as String : null,
     );
   }
 

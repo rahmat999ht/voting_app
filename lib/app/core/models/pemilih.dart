@@ -2,31 +2,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PemilihModel {
   String? id;
-  String? stb;
+  int? stb;
   String? nama;
   String? jkl;
-  String? alamat;
+  String? prody;
   String? pass;
   bool? isMemilih;
   bool? isAktif;
   PemilihModel({
     this.id,
-    this.stb,
-    this.nama,
-    this.jkl,
-    this.alamat,
-    this.pass,
-    this.isMemilih,
-    this.isAktif,
+    required this.stb,
+    required this.nama,
+    required this.jkl,
+    required this.prody,
+    required this.pass,
+    required this.isMemilih,
+    required this.isAktif,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'stb': stb,
       'nama': nama,
       'jkl': jkl,
-      'alamat': alamat,
+      'prody': prody,
       'pass': pass,
       'isMemilih': isMemilih,
       'isAktif': isAktif,
@@ -36,10 +35,10 @@ class PemilihModel {
   factory PemilihModel.fromMapById(String id, Map<String, dynamic> map) {
     return PemilihModel(
       id: id,
-      stb: map['stb'] != null ? map['stb'] as String : null,
+      stb: map['stb'] != null ? map['stb'] as int : null,
       nama: map['nama'] != null ? map['nama'] as String : null,
       jkl: map['jkl'] != null ? map['jkl'] as String : null,
-      alamat: map['alamat'] != null ? map['alamat'] as String : null,
+      prody: map['prody'] != null ? map['prody'] as String : null,
       pass: map['pass'] != null ? map['pass'] as String : null,
       isMemilih: map['isMemilih'] != null ? map['isMemilih'] as bool : null,
       isAktif: map['isAktif'] != null ? map['isAktif'] as bool : null,
