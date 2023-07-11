@@ -19,6 +19,8 @@ dependencies:
     sdk: flutter
   packages: 
     git: https://github.com/rahmat999ht/packages.git
+  shared_preferences: ^2.2.0
+
 
 dev_dependencies: 
   flutter_lints: 2.0.1
