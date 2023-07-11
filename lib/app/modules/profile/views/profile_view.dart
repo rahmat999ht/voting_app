@@ -19,42 +19,64 @@ class ProfileView extends GetView<ProfileController> {
           ],
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              ListTile(
-                title: Text('Nama :'),
-                subtitle: Text('Miming', style: TextStyle(fontSize: 16)),
-              ),
-              Divider(),
-              ListTile(
-                title: Text('STB :'),
-                subtitle: Text('192567', style: TextStyle(fontSize: 16)),
-              ),
-              Divider(),
-              ListTile(
-                title: Text('Jenis kelamin :'),
-                subtitle: Text('Laki laki', style: TextStyle(fontSize: 16)),
-              ),
-              Divider(),
-              ListTile(
-                title: Text('Jurusan :'),
-                subtitle: Text('Tata boga', style: TextStyle(fontSize: 16)),
-              ),
-              Divider(),
-              ListTile(
-                title: Text('Status Memilih:'),
-                subtitle: Text('Sudah', style: TextStyle(fontSize: 16)),
-              ),
-              Spacer(),
-              TextButton(
-                onPressed: () {},
-                child: Text("Logout"),
-              )
-            ],
-          ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipOval(
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    child: Image.network(
+                      "https://ui-avatars.com/api/?name=John+Doe",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            ListTile(
+              title: Text('Nama :'),
+              subtitle: Text('Miming', style: TextStyle(fontSize: 16)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('STB :'),
+              subtitle: Text('192567', style: TextStyle(fontSize: 16)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Jenis kelamin :'),
+              subtitle: Text('Laki laki', style: TextStyle(fontSize: 16)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Jurusan :'),
+              subtitle: Text('Tata boga', style: TextStyle(fontSize: 16)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Status Memilih:'),
+              subtitle: Text('Sudah', style: TextStyle(fontSize: 16)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Visi:'),
+              subtitle: Text('Apa aja', style: TextStyle(fontSize: 16)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Misi:'),
+              subtitle: Text('Apa aja', style: TextStyle(fontSize: 16)),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text("Logout"),
+            )
+          ],
         ),
       ),
     );
