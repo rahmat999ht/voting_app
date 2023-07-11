@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:get/get.dart';
@@ -32,21 +34,21 @@ class HasilAkhir extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap: () {
-            print("object");
+            log("object");
           },
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             //height: 130,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 12.sH,
-                Text(
+                const Text(
                   "Selamat kepada yang terpilih",
                   style: TextStyle(fontSize: 24),
                 ),
                 12.sH,
-                Text(
+                const Text(
                   "No 1, Nama",
                   style: TextStyle(fontSize: 20),
                 ),
@@ -63,7 +65,7 @@ class HasilAkhir extends StatelessWidget {
                   ),
                 ),
                 12.sH,
-                Text(
+                const Text(
                   "Dengan total suara 90% ",
                   style: TextStyle(fontSize: 20),
                 ),
