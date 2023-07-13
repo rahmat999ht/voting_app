@@ -47,7 +47,7 @@ class PemilihanModel {
     );
   }
 
-  factory PemilihanModel.fromJson(
+  factory PemilihanModel.fromDocumentSnapshot(
     DocumentSnapshot<Map<String, dynamic>> data,
   ) =>
       PemilihanModel.fromMapById(

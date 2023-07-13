@@ -21,6 +21,9 @@ class HomeController extends GetxController with StateMixin<List<CapresModel>> {
           event.docs.length,
           (index) => CapresModel.fromDocumentSnapshot(event.docs[index]),
         ).toList();
+        listCapresModel.sort(
+          (a, b) => a.noUrut!.compareTo(b.noUrut!),
+        );
         log('${listCapresModel.length}', name: 'Capres');
         change(listCapresModel, status: RxStatus.success());
       } else {

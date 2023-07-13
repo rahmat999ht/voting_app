@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import 'package:voting_app/app/modules/hasil/controllers/hasil_controller.dart';
-import 'package:voting_app/app/modules/home/controllers/home_controller.dart';
-import 'package:voting_app/app/modules/pemilihan/controllers/pemilihan_controller.dart';
-import 'package:voting_app/app/modules/profile/controllers/profile_controller.dart';
 
+import '../../hasil/controllers/hasil_controller.dart';
+import '../../home/controllers/home_controller.dart';
+import '../../pemilihan/controllers/pemilih_controller.dart';
+import '../../pemilihan/controllers/pemilihan_controller.dart';
+import '../../profile/controllers/profile_controller.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardBinding extends Bindings {
@@ -18,6 +19,9 @@ class DashboardBinding extends Bindings {
     );
     Get.lazyPut<PemilihanController>(
       () => PemilihanController(),
+    );
+    Get.lazyPut<PemilihController>(
+      () => PemilihController(),
     );
     Get.lazyPut<HasilController>(
       () => HasilController(),

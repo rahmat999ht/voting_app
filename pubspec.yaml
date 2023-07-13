@@ -20,6 +20,7 @@ dependencies:
   packages: 
     git: https://github.com/rahmat999ht/packages.git
   shared_preferences: ^2.2.0
+  collection: ^1.17.0
 
 
 dev_dependencies: 
