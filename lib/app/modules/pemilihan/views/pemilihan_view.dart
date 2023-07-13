@@ -204,6 +204,9 @@ class CardStatistik extends GetView<PemilihController> {
           ),
         );
       }
+      listPemilihCapres.sort(
+        (a, b) => a.noUrut.compareTo(b.noUrut),
+      );
       final belumMemilih =
           (controller.listBelumMemilih.length / totalPemilih) * 100;
       final persenanBelumMemilih = '${belumMemilih.toStringAsFixed(2)}%';

@@ -32,9 +32,10 @@ class DashboardController extends GetxController with StateMixin<dynamic> {
     final prefs = await SharedPreferences.getInstance();
 
     final idLogin = prefs.getString('idLogin');
+    log(idLogin!);
     final sesiLogin = prefs.getBool('sesiLogin');
     log(sesiLogin.toString());
-    await initData(sesiLogin!, idLogin!);
+    await initData(sesiLogin!, idLogin);
     selectedIndex.value = 0;
     super.onInit();
   }

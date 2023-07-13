@@ -12,7 +12,7 @@ dependencies:
   get_cli: ^1.8.1
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.1
-  flutter_echarts: ^2.4.0
+  # flutter_echarts: ^2.4.0
   cloud_firestore: ^4.8.2
   fl_chart: 0.62.0
   flutter: 
@@ -21,6 +21,7 @@ dependencies:
     git: https://github.com/rahmat999ht/packages.git
   shared_preferences: ^2.2.0
   collection: ^1.17.0
+  liquid_progress_indicator_v2: ^0.5.0
 
 
 dev_dependencies: 

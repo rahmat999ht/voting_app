@@ -11,6 +11,7 @@ class PemilihController extends GetxController
   final touchedIndex = 0.obs;
   List<PemilihModel> listPemilihModel = [];
   List<PemilihModel> listBelumMemilih = [];
+  List<PemilihModel> listSudahMemilih = [];
   Stream<QuerySnapshot<Map<String, dynamic>>> get getListCapres =>
       ConstansApp.firestore
           .collection(ConstansApp.pemilihCollection)
@@ -27,6 +28,10 @@ class PemilihController extends GetxController
         listBelumMemilih = listPemilihModel
             .where((e) => e.isMemilih == false && e.isAktif == true)
             .toList();
+        listSudahMemilih = listPemilihModel
+            .where((e) => e.isMemilih == true && e.isAktif == true)
+            .toList();
+
         log('${listPemilihModel.length}', name: 'Pemilih');
         change(listPemilihModel, status: RxStatus.success());
       } else {

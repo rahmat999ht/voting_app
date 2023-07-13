@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:get/get.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:packages/extensions/size_app.dart';
-import 'package:voting_app/app/modules/hasil/components/liquid_script.dart';
+import 'package:packages/state/loading.dart';
 
+import '../../pemilihan/controllers/pemilih_controller.dart';
 import '../controllers/hasil_controller.dart';
 
 class HasilView extends GetView<HasilController> {
@@ -17,7 +18,7 @@ class HasilView extends GetView<HasilController> {
         title: const Text('HasilView'),
         centerTitle: true,
       ),
-      body: HasilAkhir(controller: controller),
+      body: HasilSementara(controller: controller),
     );
   }
 }
@@ -89,30 +90,102 @@ class HasilSementara extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text('Progress...'),
-          SizedBox(
-            width: 400,
-            height: 400,
-            child: Obx(
-              () => Echarts(
-                extensions: const [liquidScript],
-                // theme: 'dark',
-                option: '''
-                                {
-                                  series: [{
-                                      type: 'liquidFill',
-                                      data: [${controller.valueLiquid.value}]
-                                  }]
-                                }
-                              ''',
+    final PemilihController pemilihC = Get.find<PemilihController>();
+    return pemilihC.obx(
+      (state) {
+        final int sudahMemilih = pemilihC.listSudahMemilih.length;
+        final int semuaPemilih = state!.length;
+        final double hasilSementara = (sudahMemilih / semuaPemilih) * 100;
+        log(hasilSementara.toString());
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Hasil Sementara',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
               ),
+              40.sH,
+              _AnimatedLiquidCircularProgressIndicator(
+                value: hasilSementara,
+              ),
+            ],
+          ),
+        );
+      },
+      onEmpty: const Center(child: Text("Masih Kosong")),
+      onLoading: const LoadingState(),
+      onError: (e) {
+        return Center(child: Text("pesan error : $e"));
+      },
+    );
+  }
+}
+
+class _AnimatedLiquidCircularProgressIndicator extends StatefulWidget {
+  const _AnimatedLiquidCircularProgressIndicator({required this.value});
+  @override
+  State<StatefulWidget> createState() =>
+      _AnimatedLiquidCircularProgressIndicatorState();
+
+  final double value;
+}
+
+class _AnimatedLiquidCircularProgressIndicatorState
+    extends State<_AnimatedLiquidCircularProgressIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    );
+    _animationController.addListener(() => setState(() {}));
+    _animationController.repeat();
+    // log(widget.value.toString());
+    // log(_animationController.value.toString());
+    // if (percentage! < widget.value) {
+
+    //   log(_animationController.value.toString());
+    // }
+    // if (percentage == widget.value) {
+    //   _animationController.dispose();
+    //   log(_animationController.value.toString());
+    // }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: 300.0,
+        height: 300.0,
+        child: LiquidCircularProgressIndicator(
+          value: _animationController.value,
+          backgroundColor: Colors.white,
+          valueColor: const AlwaysStoppedAnimation(Colors.blue),
+          borderColor: Colors.grey,
+          borderWidth: 5.0,
+          center: Text(
+            "${widget.value.toStringAsFixed(0)}%",
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 40.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ],
+        ),
       ),
     );
   }
