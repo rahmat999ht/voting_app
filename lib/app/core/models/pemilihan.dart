@@ -18,7 +18,6 @@ class PemilihanModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'capres': capres,
       'pemilih': pemilih,
       'tglMemilih': tglMemilih,

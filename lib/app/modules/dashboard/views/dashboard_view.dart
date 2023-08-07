@@ -10,12 +10,17 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-        () => controller.widgetOptions().elementAt(
-              controller.selectedIndex.value,
-            ),
+        () => controller.sesionLogin == true
+            ? controller.widgetOptions().elementAt(
+                  controller.selectedIndex.value,
+                )
+            : controller.widgetOptions().elementAt(
+                  controller.selectedIndex.value + 1,
+                ),
       ),
       bottomNavigationBar: Obx(
         () => BottomNavBar(
+          isPres: controller.sesionLogin ?? false,
           selectedIndex: controller.selectedIndex.value,
           onTabChange: (index) {
             controller.selectedIndex.value = index;

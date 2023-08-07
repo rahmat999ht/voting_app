@@ -6,10 +6,19 @@ import '../constans/constans_app.dart';
 import '../models/pemilihan.dart';
 
 class MethodApp {
-  DocumentReference<PemilihModel> pemilih(String idKamar) {
+  Future addPemilihan(
+    Map<String, dynamic> map, {
+    Map<String, dynamic>? data,
+  }) async {
+    await ConstansApp.firestore
+        .collection(ConstansApp.pemilihanCollection)
+        .add(data!);
+  }
+
+  DocumentReference<PemilihModel> pemilih(String idPemilih) {
     return ConstansApp.firestore
         .collection(ConstansApp.pemilihCollection)
-        .doc(idKamar)
+        .doc(idPemilih)
         .withConverter(
           fromFirestore: (snapshot, options) =>
               PemilihModel.fromDocumentSnapshot(snapshot),
@@ -17,10 +26,10 @@ class MethodApp {
         );
   }
 
-  DocumentReference<PemilihanModel> pemilihan(String idKamar) {
+  DocumentReference<PemilihanModel> pemilihan(String idPemilihan) {
     return ConstansApp.firestore
         .collection(ConstansApp.pemilihanCollection)
-        .doc(idKamar)
+        .doc(idPemilihan)
         .withConverter(
           fromFirestore: (snapshot, options) =>
               PemilihanModel.fromDocumentSnapshot(snapshot),
@@ -28,10 +37,10 @@ class MethodApp {
         );
   }
 
-  DocumentReference<CapresModel> capres(String idKamar) {
+  DocumentReference<CapresModel> capres(String idCapres) {
     return ConstansApp.firestore
         .collection(ConstansApp.capresCollection)
-        .doc(idKamar)
+        .doc(idCapres)
         .withConverter(
           fromFirestore: (snapshot, options) =>
               CapresModel.fromDocumentSnapshot(snapshot),

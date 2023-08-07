@@ -6,10 +6,12 @@ import 'package:voting_app/app/core/colors/colors_app.dart';
 class BottomNavBar extends StatelessWidget {
   final void Function(int index)? onTabChange;
   final int selectedIndex;
+  final bool isPres;
   const BottomNavBar({
     Key? key,
     this.onTabChange,
     required this.selectedIndex,
+    required this.isPres,
   }) : super(key: key);
 
   @override
@@ -37,20 +39,21 @@ class BottomNavBar extends StatelessWidget {
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: ColorApp.primary,
             color: ColorApp.primary,
-            tabs: const [
-              GButton(
-                icon: LineIcons.home,
-                text: 'Home',
-              ),
-              GButton(
+            tabs: [
+              if (isPres == true)
+                const GButton(
+                  icon: LineIcons.home,
+                  text: 'Home',
+                ),
+              const GButton(
                 icon: LineIcons.barChartAlt,
                 text: 'Card',
               ),
-              GButton(
+              const GButton(
                 icon: LineIcons.checkCircleAlt,
                 text: 'Hasil',
               ),
-              GButton(
+              const GButton(
                 icon: LineIcons.user,
                 text: 'Profile',
               ),
