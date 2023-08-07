@@ -14,7 +14,7 @@ import '../../../core/constans/constans_app.dart';
 
 class DashboardController extends GetxController with StateMixin<dynamic> {
   final selectedIndex = 0.obs;
-  bool? sesionLogin;
+  final sesionLogin = false.obs;
   List<Widget> widgetOptions() => [
         const HomeView(),
         const PemilihanView(),
@@ -35,7 +35,7 @@ class DashboardController extends GetxController with StateMixin<dynamic> {
     final idLogin = prefs.getString('idLogin');
     log(idLogin!);
     final sesiLogin = prefs.getBool('sesiLogin');
-    sesionLogin = sesiLogin ?? false;
+    sesionLogin.value = sesiLogin ?? false;
     log(sesiLogin.toString());
     await initData(sesiLogin!, idLogin);
     selectedIndex.value = 0;

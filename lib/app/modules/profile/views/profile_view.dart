@@ -16,7 +16,7 @@ class ProfileView extends GetView<ProfileController> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('ProfileView'),
+              const Text('Profil'),
               if (state is PemilihModel)
                 if (state.isAktif == true)
                   const Text('Aktif')

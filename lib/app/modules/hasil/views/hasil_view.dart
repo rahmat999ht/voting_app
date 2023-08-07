@@ -15,7 +15,7 @@ class HasilView extends GetView<HasilController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HasilView'),
+        title: const Text('Hasil'),
         centerTitle: true,
       ),
       body: HasilSementara(controller: controller),

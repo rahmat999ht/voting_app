@@ -72,24 +72,7 @@ class LoginController extends GetxController {
         .get();
     if (data.size == 0) {
       log("data 0");
-      alertActions(
-        'Info',
-        'anda tidak terdaftar',
-        [
-          TextButton(
-            child: const Text(
-              'OK',
-              style: TextStyle(
-                fontSize: 14,
-              ),
-            ),
-            onPressed: () {
-              Get.back(result: false);
-              // Get.back();
-            },
-          ),
-        ],
-      );
+      alertGagal();
       return;
     } else {
       log("try : ${data.docs.first.id}");
@@ -100,6 +83,27 @@ class LoginController extends GetxController {
         Routes.DASHBOARD,
       );
     }
+  }
+
+  alertGagal() {
+    alertActions(
+      'Info',
+      'anda tidak terdaftar',
+      [
+        TextButton(
+          child: const Text(
+            'OK',
+            style: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+          onPressed: () {
+            Get.back(result: false);
+            // Get.back();
+          },
+        ),
+      ],
+    );
   }
 
   // final List<Map<String, dynamic>> pemilih = [

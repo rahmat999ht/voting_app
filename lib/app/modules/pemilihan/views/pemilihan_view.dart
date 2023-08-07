@@ -21,7 +21,7 @@ class PemilihanView extends GetView<PemilihanController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PemilihanView'),
+        title: const Text('Pemilihan'),
         centerTitle: true,
       ),
       body: controller.obx(
