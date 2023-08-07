@@ -30,14 +30,6 @@ class CardCapres extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // old code
-                // Column(
-                //   children: ['dynamic', 'static'].map((e) => Text(e)).toList(),
-                // ),
-                // // new code
-                // Column(
-                //   children: ['dynamic', 'static'].map(Text.new).toList(),
-                // ),
                 ClipOval(
                   child: Container(
                     width: 75,
