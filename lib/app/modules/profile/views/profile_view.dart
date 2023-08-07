@@ -124,7 +124,7 @@ class ProfileView extends GetView<ProfileController> {
                   ],
                 ),
               TextButton(
-                onPressed: () {},
+                onPressed: controller.logOut,
                 child: const Text("Logout"),
               )
             ],
