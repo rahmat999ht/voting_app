@@ -10,6 +10,7 @@ class PemilihController extends GetxController
     with StateMixin<List<PemilihModel>> {
   final touchedIndex = 0.obs;
   List<PemilihModel> listPemilihModel = [];
+  List<PemilihModel> listPemilihAktif = [];
   List<PemilihModel> listBelumMemilih = [];
   List<PemilihModel> listSudahMemilih = [];
   Stream<QuerySnapshot<Map<String, dynamic>>> get getListCapres =>
@@ -25,6 +26,11 @@ class PemilihController extends GetxController
           event.docs.length,
           (index) => PemilihModel.fromDocumentSnapshot(event.docs[index]),
         ).toList();
+        listPemilihAktif = listPemilihModel
+            .where(
+              (e) => e.isAktif == true,
+            )
+            .toList();
         listBelumMemilih = listPemilihModel
             .where((e) => e.isMemilih == false && e.isAktif == true)
             .toList();

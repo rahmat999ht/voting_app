@@ -6,6 +6,7 @@ import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:packages/extensions/size_app.dart';
 import 'package:packages/state/loading.dart';
 
+import '../../../core/interface/app_bar/app_bar_title.dart';
 import '../../pemilihan/controllers/pemilih_controller.dart';
 import '../controllers/hasil_controller.dart';
 
@@ -14,9 +15,8 @@ class HasilView extends GetView<HasilController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hasil'),
-        centerTitle: true,
+      appBar: appBarTitle(
+        title: 'Hasil Akhir',
       ),
       body: HasilSementara(controller: controller),
     );
@@ -102,7 +102,8 @@ class HasilSementara extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                'Hasil Sementara',
+                'Pemilihan sedang berlangsung',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
                 ),

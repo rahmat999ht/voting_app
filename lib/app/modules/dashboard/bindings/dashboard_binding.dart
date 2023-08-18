@@ -12,7 +12,6 @@ class DashboardBinding extends Bindings {
   void dependencies() {
     Get.put<DashboardController>(
       DashboardController(),
-      permanent: true,
     );
     Get.lazyPut<HomeController>(
       () => HomeController(),

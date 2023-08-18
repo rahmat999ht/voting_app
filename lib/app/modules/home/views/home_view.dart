@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:packages/packages.dart';
 import 'package:voting_app/app/core/models/capres.dart';
 
+import '../../../core/interface/app_bar/app_bar_title.dart';
 import '../components/card_capres.dart';
 import '../controllers/home_controller.dart';
 
@@ -11,9 +12,8 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Voting App'),
-        centerTitle: true,
+      appBar: appBarTitle(
+        title: 'Home',
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20, left: 20, right: 20),

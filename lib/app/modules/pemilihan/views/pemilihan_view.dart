@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:packages/extensions/size_app.dart';
 import 'package:packages/state/loading.dart';
+import 'package:voting_app/app/core/interface/app_bar/app_bar_title.dart';
 import 'package:voting_app/app/core/models/capres.dart';
 import 'package:voting_app/app/core/models/pemilihan.dart';
+import 'package:voting_app/app/modules/pemilihan/components/detail_capres.dart';
 import 'package:voting_app/app/modules/pemilihan/controllers/pemilih_controller.dart';
 
 import '../../../core/models/pemilih_capres.dart';
@@ -20,69 +22,71 @@ class PemilihanView extends GetView<PemilihanController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pemilihan'),
-        centerTitle: true,
+      appBar: appBarTitle(
+        title: 'Hasil Sementara',
       ),
       body: controller.obx(
         (state) {
-          final totalPemilih =
-              controller.controllerPemilih.listPemilihModel.length;
-          final dataSemuaPemilihan = state!;
-          final capres01 = dataSemuaPemilihan
-              .where((e) => e.capres!.id == 'h7vlv6B98ZcQCU7jE6Uw')
-              .toList();
-          final capres02 = dataSemuaPemilihan
-              .where((e) => e.capres!.id == 'P3KfoNxdvtFqUwbR9urP')
-              .toList();
-          final capres03 = dataSemuaPemilihan
-              .where((e) => e.capres!.id == 'pk3QADckQZfpBLZsSG3L')
-              .toList();
-          final pemilihCapres01 = (capres01.length / totalPemilih) * 100;
-          final pemilihCapres02 = (capres02.length / totalPemilih) * 100;
-          final pemilihCapres03 = (capres03.length / totalPemilih) * 100;
-          final persenCapres01 = '${pemilihCapres01.toStringAsFixed(2)}%';
-          final persenCapres02 = '${pemilihCapres02.toStringAsFixed(2)}%';
-          final persenCapres03 = '${pemilihCapres03.toStringAsFixed(2)}%';
-          final listPersen = [
-            persenCapres01,
-            persenCapres02,
-            persenCapres03,
-          ];
           return controller.controllerHome.obx(
-            (stateHome) => SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 250,
-                    child: Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(children: [
-                          ...List.generate(
-                            stateHome!.length,
-                            (index) => CardCapresPV(
-                              data: stateHome[index],
-                              colors: controller.listColors[index],
-                              persen: listPersen[index],
-                              onTap: () {
-                                log('object Capres');
-                              },
+            (stateHome) {
+              final totalPemilih =
+                  controller.controllerPemilih.listPemilihAktif.length;
+              final listPemilihCapres = <PemilihCapresModel>[];
+              for (int index = 0; index < stateHome!.length; index++) {
+                final dataPemilihanCapres = state!
+                    .where((e) => e.capres!.id == stateHome[index].id)
+                    .toList();
+                final persen =
+                    (dataPemilihanCapres.length / totalPemilih) * 100;
+                final stringPersen = '${persen.toStringAsFixed(2)}%';
+                log('dataPemilihanCapres $dataPemilihanCapres');
+                log('listPemilihCapres $listPemilihCapres');
+                listPemilihCapres.add(
+                  PemilihCapresModel(
+                    noUrut: stateHome[index].noUrut!,
+                    bykPemilih: dataPemilihanCapres.length.toDouble(),
+                    persen: stringPersen,
+                  ),
+                );
+              }
+              listPemilihCapres.sort(
+                (a, b) => a.noUrut.compareTo(b.noUrut),
+              );
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(children: [
+                            ...List.generate(
+                              stateHome.length,
+                              (index) => CardCapresPV(
+                                data: stateHome[index],
+                                colors: controller.listColors[index],
+                                persen: listPemilihCapres[index].persen,
+                                onTap: () {
+                                  Get.to(
+                                    DetailCapres(data: stateHome[index]),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ]),
+                          ]),
+                        ),
                       ),
                     ),
-                  ),
-                  CardStatistik(
-                    dataSemuaPemilihan: state,
-                    dataSemuaCapres: stateHome,
-                    listColor: controller.listColors,
-                  ),
-                  listIndokator(stateHome),
-                ],
-              ),
-            ),
+                    CardStatistik(
+                      dataSemuaPemilihan: state!,
+                      dataSemuaCapres: stateHome,
+                      listColor: controller.listColors,
+                    ),
+                    listIndokator(stateHome),
+                  ],
+                ),
+              );
+            },
             onEmpty: const Center(child: Text("Masih Kosong")),
             onLoading: const LoadingState(),
             onError: (e) {
@@ -258,10 +262,8 @@ class CardCapresPV extends StatelessWidget {
           color: Colors.grey[300],
         ),
         width: 130,
-        height: 225,
         child: Column(
           children: [
-            12.sH,
             Text(
               "${data.nama}",
               style: const TextStyle(
@@ -284,7 +286,6 @@ class CardCapresPV extends StatelessWidget {
                 child: Text(persen ?? '0%'),
               ),
             ),
-            12.sH,
           ],
         ),
       ),

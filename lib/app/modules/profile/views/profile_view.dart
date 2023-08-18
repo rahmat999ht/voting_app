@@ -4,6 +4,7 @@ import 'package:packages/state/loading.dart';
 import 'package:voting_app/app/core/models/capres.dart';
 import 'package:voting_app/app/core/models/pemilih.dart';
 
+import '../../../core/colors/colors_app.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -13,15 +14,20 @@ class ProfileView extends GetView<ProfileController> {
     return controller.dashboardC.obx(
       (state) => Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          centerTitle: false,
+          toolbarHeight: 70,
+          automaticallyImplyLeading: false,
+          backgroundColor: ColorApp.white.withOpacity(0),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Profil'),
+              Text('Profil', style: TextStyle(color: ColorApp.black)),
               if (state is PemilihModel)
                 if (state.isAktif == true)
-                  const Text('Aktif')
+                  Text('Aktif', style: TextStyle(color: ColorApp.black))
                 else
-                  const Text('Non-Aktif'),
+                  Text('Non-Aktif', style: TextStyle(color: ColorApp.black)),
             ],
           ),
         ),
