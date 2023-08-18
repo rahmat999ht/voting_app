@@ -20,35 +20,36 @@ class HomeView extends GetView<HomeController> {
         child: Form(
           key: controller.formKeyValidate,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: Text(
-                  "Enter A Vote Code",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              20.sH,
-              TextForm.border(
-                controller: controller.cValidate,
-                title: 'Entar code',
-                isCheck: true,
-              ),
-              10.sH,
-              Obx(
-                () => ButtonPrymary(
-                  isLoading: controller.isLoadingValidate.value,
-                  onPressed: controller.validate,
-                  text: "Validate",
-                ),
-              ),
-              12.sH,
-              Divider(
-                color: Colors.grey[500],
-              ),
+              // const Center(
+              //   child: Text(
+              //     "Enter A Vote Code",
+              //     style: TextStyle(fontSize: 20),
+              //   ),
+              // ),
+              // 20.sH,
+              // TextForm.border(
+              //   controller: controller.cValidate,
+              //   title: 'Entar code',
+              //   isCheck: true,
+              // ),
+              // 10.sH,
+              // Obx(
+              //   () => ButtonPrymary(
+              //     isLoading: controller.isLoadingValidate.value,
+              //     onPressed: controller.validate,
+              //     text: "Validate",
+              //   ),
+              // ),
+              // 12.sH,
+              // Divider(
+              //   color: Colors.grey[500],
+              // ),
               12.sH,
               const Text(
-                "Nama nama capres didunia ini",
-                style: TextStyle(fontSize: 20),
+                "Capres Bem : ",
+                style: TextStyle(fontSize: 18),
               ),
               20.sH,
               controller.obx(

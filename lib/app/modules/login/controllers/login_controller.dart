@@ -19,6 +19,8 @@ class LoginController extends GetxController {
   final isLoading = false.obs;
   final isObscure = true.obs;
 
+  // final dC = Get.find<DashboardController>();
+
   void initLoading() {
     isLoading.value = !isLoading.value;
   }
@@ -48,12 +50,12 @@ class LoginController extends GetxController {
           final pemilih = ConstansApp.firestore.collection(
             ConstansApp.pemilihCollection,
           );
-          await iniData(pemilih, true);
+          await iniData(pemilih, 'pemilih');
         } else {
           final capres = ConstansApp.firestore.collection(
             ConstansApp.capresCollection,
           );
-          await iniData(capres, false);
+          await iniData(capres, 'capres');
         }
       }
     } catch (e) {
@@ -64,7 +66,7 @@ class LoginController extends GetxController {
 
   Future iniData(
     CollectionReference<Map<String, dynamic>> collection,
-    bool sesiIsPemilih,
+    String sesiLogin,
   ) async {
     final data = await collection
         .where('stb', isEqualTo: int.parse(stbC.text))
@@ -77,7 +79,7 @@ class LoginController extends GetxController {
     } else {
       log("try : ${data.docs.first.id}");
       final prefs = await SharedPreferences.getInstance();
-      prefs.setBool("sesiLogin", sesiIsPemilih);
+      prefs.setString("sesiLogin", sesiLogin);
       prefs.setString("idLogin", data.docs.first.id);
       Get.offAllNamed(
         Routes.DASHBOARD,

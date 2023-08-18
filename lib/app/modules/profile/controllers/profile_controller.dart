@@ -10,6 +10,9 @@ class ProfileController extends GetxController {
   Future logOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString("idLogin", '');
+    prefs.setString("sesiLogin", '');
+    dashboardC.emptyState();
+    dashboardC.successState(null);
     Get.offAllNamed(
       Routes.LOGIN,
     );

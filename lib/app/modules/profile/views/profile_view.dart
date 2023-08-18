@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:packages/state/loading.dart';
+import 'package:packages/packages.dart';
+import 'package:voting_app/app/core/interface/alerts/alert_info.dart';
 import 'package:voting_app/app/core/models/capres.dart';
 import 'package:voting_app/app/core/models/pemilih.dart';
 
@@ -25,9 +26,35 @@ class ProfileView extends GetView<ProfileController> {
               Text('Profil', style: TextStyle(color: ColorApp.black)),
               if (state is PemilihModel)
                 if (state.isAktif == true)
-                  Text('Aktif', style: TextStyle(color: ColorApp.black))
+                  ButtonPrymary(
+                    onPressed: () {
+                      // alertInfo(
+                      //   'info',
+                      //   'akun anda di non-aktifkan oleh admin, anda tidak bisa melakukan pemilihan dan jika sudah melakukan pemilihan, suara anda tidak akan terhitung kedalam rekapan pemilihan',
+                      // );
+                      alertInfo(
+                        'info',
+                        'akun anda berstatus aktif, anda bisa melakukan pemilihan dan suara anda akan terhitung kedalam rekapan pemilihan',
+                      );
+                    },
+                    text: "Aktif",
+                    textColor: ColorApp.black,
+                    bgColor: ColorApp.primary,
+                    width: 100,
+                  )
                 else
-                  Text('Non-Aktif', style: TextStyle(color: ColorApp.black)),
+                  ButtonPrymary(
+                    onPressed: () {
+                      alertInfo(
+                        'info',
+                        'akun anda di non-aktifkan oleh admin, anda tidak bisa melakukan pemilihan dan jika sudah melakukan pemilihan, suara anda tidak akan terhitung kedalam rekapan pemilihan',
+                      );
+                    },
+                    text: "Non Aktif",
+                    textColor: ColorApp.black,
+                    bgColor: ColorApp.red,
+                    width: 100,
+                  ),
             ],
           ),
         ),
@@ -129,10 +156,13 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                   ],
                 ),
-              TextButton(
+              ButtonPrymary(
                 onPressed: controller.logOut,
-                child: const Text("Logout"),
-              )
+                text: "Logout",
+                textColor: ColorApp.black,
+                bgColor: ColorApp.primary,
+                width: 100,
+              ),
             ],
           ),
         ),

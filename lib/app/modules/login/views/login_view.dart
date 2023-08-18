@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:packages/packages.dart';
+import 'package:voting_app/app/core/interface/app_bar/app_bar_title.dart';
 
 import '../../../core/colors/colors_app.dart';
 import '../controllers/login_controller.dart';
@@ -10,16 +11,14 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        centerTitle: true,
-      ),
+      appBar: appBarTitle(title: 'Login User'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
             key: controller.formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // 20.sH,
                 // const FlutterLogo(size: 120),
@@ -76,10 +75,16 @@ class LoginView extends GetView<LoginController> {
                 ),
                 20.sH,
                 const Text(
+                  'Info : ',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                8.sH,
+                const Text(
                   'Login menggunakan akun SIAKA anda',
                   style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ],

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:packages/extensions/size_app.dart';
 import 'package:packages/state/loading.dart';
+import 'package:voting_app/app/core/colors/colors_app.dart';
 
 import '../../../core/interface/app_bar/app_bar_title.dart';
 import '../../pemilihan/controllers/pemilih_controller.dart';
@@ -175,7 +176,7 @@ class _AnimatedLiquidCircularProgressIndicatorState
         child: LiquidCircularProgressIndicator(
           value: _animationController.value,
           backgroundColor: Colors.white,
-          valueColor: const AlwaysStoppedAnimation(Colors.blue),
+          valueColor: AlwaysStoppedAnimation(ColorApp.primary),
           borderColor: Colors.grey,
           borderWidth: 5.0,
           center: Text(

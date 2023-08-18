@@ -14,7 +14,7 @@ import '../../../core/constans/constans_app.dart';
 
 class DashboardController extends GetxController with StateMixin<dynamic> {
   final selectedIndex = 0.obs;
-  final sesionLogin = false.obs;
+  final sesionLogin = ''.obs;
   List<Widget> widgetOptions() => [
         const HomeView(),
         const PemilihanView(),
@@ -34,16 +34,16 @@ class DashboardController extends GetxController with StateMixin<dynamic> {
 
     final idLogin = prefs.getString('idLogin');
     log(idLogin!);
-    final sesiLogin = prefs.getBool('sesiLogin');
-    sesionLogin.value = sesiLogin ?? false;
+    final sesiLogin = prefs.getString('sesiLogin');
+    sesionLogin.value = sesiLogin!;
     log(sesiLogin.toString());
-    await initData(sesiLogin!, idLogin);
+    await initData(sesiLogin, idLogin);
     selectedIndex.value = 0;
     super.onInit();
   }
 
-  Future initData(bool sesiLogin, String idLogin) async {
-    if (sesiLogin == true) {
+  Future initData(String sesiLogin, String idLogin) async {
+    if (sesiLogin == 'pemilih') {
       final dataAllUser = await ConstansApp.firestore
           .collection(ConstansApp.pemilihCollection)
           .get();
@@ -52,9 +52,9 @@ class DashboardController extends GetxController with StateMixin<dynamic> {
           .toList();
       var dataUserModel = dataAllUser.docs.firstWhere((e) => e.id == idLogin);
       pemilihModel = PemilihModel.fromDocumentSnapshot(dataUserModel);
-      idLoginUser = capresModel!.id;
+      idLoginUser = pemilihModel!.id;
       successState(pemilihModel!);
-    } else {
+    } else if (sesiLogin == 'capres') {
       final dataAllUser = await ConstansApp.firestore
           .collection(ConstansApp.capresCollection)
           .get();
@@ -65,6 +65,8 @@ class DashboardController extends GetxController with StateMixin<dynamic> {
       capresModel = CapresModel.fromDocumentSnapshot(dataUserModel);
       idLoginUser = capresModel!.id;
       successState(capresModel!);
+    } else {
+      loadingState();
     }
   }
 
@@ -79,6 +81,13 @@ class DashboardController extends GetxController with StateMixin<dynamic> {
     change(
       userLogin,
       status: RxStatus.success(),
+    );
+  }
+
+  void emptyState() {
+    change(
+      null,
+      status: RxStatus.empty(),
     );
   }
 }
