@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voting_app/app/core/colors/colors_app.dart';
 
 import '../../../core/models/capres.dart';
 
@@ -25,7 +26,10 @@ class CardCapres extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
+              color: ColorApp.white,
               borderRadius: BorderRadius.circular(20),
+              shape: BoxShape.rectangle,
+              border: Border.all(color: ColorApp.primary),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

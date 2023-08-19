@@ -65,6 +65,7 @@ class ProfileView extends GetView<ProfileController> {
               if (state is PemilihModel)
                 Column(
                   children: [
+                    40.sH,
                     ListTile(
                       title: const Text('Nama :'),
                       subtitle: Text('${state.nama}',

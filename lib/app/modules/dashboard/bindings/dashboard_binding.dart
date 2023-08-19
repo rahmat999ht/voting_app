@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:voting_app/app/modules/home/controllers/control_pem_controller.dart';
 
 import '../../hasil/controllers/hasil_controller.dart';
 import '../../home/controllers/home_controller.dart';
@@ -27,6 +28,9 @@ class DashboardBinding extends Bindings {
     );
     Get.lazyPut<ProfileController>(
       () => ProfileController(),
+    );
+    Get.lazyPut<ControlPemController>(
+      () => ControlPemController(),
     );
   }
 }

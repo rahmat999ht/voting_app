@@ -69,6 +69,8 @@ class LoginView extends GetView<LoginController> {
                   () => ButtonPrymary(
                     isLoading: controller.isLoading.value,
                     text: 'Login',
+                    textColor: ColorApp.black,
+                    bgColor: ColorApp.primary,
                     onPressed: controller.login,
                     height: 50,
                   ),

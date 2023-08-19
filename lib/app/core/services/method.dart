@@ -6,13 +6,22 @@ import '../constans/constans_app.dart';
 import '../models/pemilihan.dart';
 
 class MethodApp {
-  Future addPemilihan(
-    Map<String, dynamic> map, {
-    Map<String, dynamic>? data,
+  Future addPemilihan({
+    required Map<String, dynamic> data,
   }) async {
     await ConstansApp.firestore
         .collection(ConstansApp.pemilihanCollection)
-        .add(data!);
+        .add(data);
+  }
+
+  Future updatePemilih({
+    required String id,
+    required Map<String, dynamic> data,
+  }) async {
+    await ConstansApp.firestore
+        .collection(ConstansApp.pemilihCollection)
+        .doc(id)
+        .update(data);
   }
 
   DocumentReference<PemilihModel> pemilih(String idPemilih) {
