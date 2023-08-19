@@ -26,7 +26,7 @@ class HasilView extends GetView<HasilController> {
           if (stateAktif.isEmpty) {
             return HasilAkhir(cont: controller);
           } else {
-            return HasilSementara(controller: controller);
+            return ProsesPemilihan(controller: controller);
           }
         },
         onEmpty: const EmptyState(),
@@ -157,8 +157,8 @@ class HasilAkhir extends GetView<PemilihanController> {
   }
 }
 
-class HasilSementara extends StatelessWidget {
-  const HasilSementara({
+class ProsesPemilihan extends StatelessWidget {
+  const ProsesPemilihan({
     super.key,
     required this.controller,
   });
