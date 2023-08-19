@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
-import 'package:packages/extensions/size_app.dart';
-import 'package:packages/state/loading.dart';
+import 'package:packages/packages.dart';
 import 'package:voting_app/app/core/colors/colors_app.dart';
+import 'package:voting_app/app/modules/pemilihan/controllers/pemilihan_controller.dart';
 
 import '../../../core/interface/app_bar/app_bar_title.dart';
+import '../../../core/models/pemilih_capres.dart';
 import '../../pemilihan/controllers/pemilih_controller.dart';
 import '../controllers/hasil_controller.dart';
 
@@ -19,64 +20,139 @@ class HasilView extends GetView<HasilController> {
       appBar: appBarTitle(
         title: 'Hasil Akhir',
       ),
-      body: HasilSementara(controller: controller),
+      body: controller.contPem.obx(
+        (stCP) {
+          final stateAktif = stCP!.where((e) => e.isAktif == true).toList();
+          if (stateAktif.isEmpty) {
+            return HasilAkhir(cont: controller);
+          } else {
+            return HasilSementara(controller: controller);
+          }
+        },
+        onEmpty: const EmptyState(),
+        onLoading: const LoadingState(),
+        onError: (e) => ErrorState(error: e.toString()),
+      ),
     );
   }
 }
 
-class HasilAkhir extends StatelessWidget {
-  const HasilAkhir({super.key, required this.controller});
-  final HasilController controller;
+class HasilAkhir extends GetView<PemilihanController> {
+  const HasilAkhir({super.key, required this.cont});
+  final HasilController cont;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(20),
-        child: InkWell(
-          onTap: () {
-            log("object");
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            //height: 130,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                12.sH,
-                const Text(
-                  "Selamat kepada yang terpilih",
-                  style: TextStyle(fontSize: 24),
+    return controller.obx(
+      (state) {
+        return controller.controllerHome.obx(
+          (stateCapres) {
+            // variabel patokan = total pemilih aktif
+            final totalPemilih =
+                controller.controllerPemilih.listPemilihAktif.length;
+            final listPemilihCapres = <CapresTerpilihModel>[];
+            for (int index = 0; index < stateCapres!.length; index++) {
+              final dataPemilihanCapres = state!
+                  .where((e) => e.capres!.id == stateCapres[index].id)
+                  .toList();
+              final persen = (dataPemilihanCapres.length / totalPemilih) * 100;
+              final stringPersen = '${persen.toStringAsFixed(2)}%';
+              log('dataPemilihanCapres $dataPemilihanCapres');
+              log('listPemilihCapres $listPemilihCapres');
+              // variabel patokan = total suara kandidat
+              final totalSuaraCapres = dataPemilihanCapres.length;
+              // variabel patokan = total nilai penggali
+              // yang di dapatkan berdarakan rumus nilai penggali
+              final nilaiPengaliCapres =
+                  (totalPemilih + 1) / (totalSuaraCapres + 1);
+              // variabel patokan = total nilai validasi
+              // yang di dapatkan berdarakan rumus nilai validasi
+              final nilaiValidasiCapres =
+                  (totalSuaraCapres * nilaiPengaliCapres) / (totalPemilih);
+              listPemilihCapres.add(
+                CapresTerpilihModel(
+                  capres: stateCapres[index],
+                  jumlahSuara: totalSuaraCapres.toDouble(),
+                  nilaiPengali: nilaiPengaliCapres.toDouble(),
+                  nilaiValidasi: nilaiValidasiCapres.toDouble(),
+                  persen: stringPersen,
                 ),
-                12.sH,
-                const Text(
-                  "No 1, Nama",
-                  style: TextStyle(fontSize: 20),
-                ),
-                12.sH,
-                ClipOval(
-                  child: Container(
-                    height: 160,
-                    width: 160,
-                    color: Colors.grey[200],
-                    child: Image.network(
-                      "https://ui-avatars.com/api/?name=John+Doe",
-                      fit: BoxFit.cover,
-                    ),
+              );
+            }
+            listPemilihCapres.sort(
+              (a, b) => b.jumlahSuara.compareTo(a.jumlahSuara),
+            );
+            final data = listPemilihCapres.first;
+            final dataCapres = listPemilihCapres.first.capres;
+            //nilai validasi dijadikan dua angka di belakang koma
+            final nilaiValidasi =
+                double.parse(data.nilaiValidasi.toStringAsFixed(2));
+
+            return Center(
+              child: InkWell(
+                onTap: () {
+                  log("object");
+                  log('listPemilihCapres ${data.nilaiValidasi}');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  //height: 130,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      12.sH,
+                      const Text(
+                        "Selamat kepada yang terpilih",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      12.sH,
+                      Text(
+                        "${dataCapres.noUrut}, ${dataCapres.nama}",
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      12.sH,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(300),
+                          side: BorderSide(
+                            color: ColorApp.primary,
+                            width: 3,
+                          ),
+                        ),
+                        child: ClipOval(
+                          child: Image.network(
+                            "${dataCapres.foto}",
+                            fit: BoxFit.cover,
+                            height: 200,
+                            width: 200,
+                          ),
+                        ),
+                      ),
+                      12.sH,
+                      Text(
+                        "Dengan nilai Penggali : ${data.nilaiPengali}",
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      12.sH,
+                      Text(
+                        "Dengan nilai Validasi : $nilaiValidasi",
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      12.sH,
+                    ],
                   ),
                 ),
-                12.sH,
-                const Text(
-                  "Dengan total suara 90% ",
-                  style: TextStyle(fontSize: 20),
-                ),
-                12.sH,
-              ],
-            ),
-          ),
-        ),
-      ),
+              ),
+            );
+          },
+          onEmpty: const EmptyState(),
+          onLoading: const LoadingState(),
+          onError: (e) => ErrorState(error: e.toString()),
+        );
+      },
+      onEmpty: const EmptyState(),
+      onLoading: const LoadingState(),
+      onError: (e) => ErrorState(error: e.toString()),
     );
   }
 }
