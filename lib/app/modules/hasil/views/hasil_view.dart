@@ -22,10 +22,15 @@ class HasilView extends GetView<HasilController> {
       ),
       body: controller.contPem.obx(
         (stCP) {
-          final stateAktif = stCP!.where((e) => e.isAktif == true).toList();
+          stCP!.sort(
+            (a, b) => a.waktuSelesai.compareTo(b.waktuSelesai),
+          );
+          final stateAktif = stCP.where((e) => e.isAktif == true).toList();
           if (stateAktif.isEmpty) {
+            log('isEmpty');
             return HasilAkhir(cont: controller);
           } else {
+            log('isNotEmpty');
             return ProsesPemilihan(controller: controller);
           }
         },
@@ -79,71 +84,76 @@ class HasilAkhir extends GetView<PemilihanController> {
                 ),
               );
             }
-            listPemilihCapres.sort(
-              (a, b) => b.jumlahSuara.compareTo(a.jumlahSuara),
-            );
-            final data = listPemilihCapres.first;
-            final dataCapres = listPemilihCapres.first.capres;
-            //nilai validasi dijadikan dua angka di belakang koma
-            final nilaiValidasi =
-                double.parse(data.nilaiValidasi.toStringAsFixed(2));
 
-            return Center(
-              child: InkWell(
-                onTap: () {
-                  log("object");
-                  log('listPemilihCapres ${data.nilaiValidasi}');
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  //height: 130,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      12.sH,
-                      const Text(
-                        "Selamat kepada yang terpilih",
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      12.sH,
-                      Text(
-                        "${dataCapres.noUrut}, ${dataCapres.nama}",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      12.sH,
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(300),
-                          side: BorderSide(
-                            color: ColorApp.primary,
-                            width: 3,
+            if (listPemilihCapres.isNotEmpty) {
+              listPemilihCapres.sort(
+                (a, b) => b.jumlahSuara.compareTo(a.jumlahSuara),
+              );
+              final data = listPemilihCapres.first;
+              final dataCapres = listPemilihCapres.first.capres;
+              //nilai validasi dijadikan dua angka di belakang koma
+              final nilaiValidasi =
+                  double.parse(data.nilaiValidasi.toStringAsFixed(2));
+
+              return Center(
+                child: InkWell(
+                  onTap: () {
+                    log("object");
+                    log('listPemilihCapres ${data.nilaiValidasi}');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    //height: 130,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        12.sH,
+                        const Text(
+                          "Selamat kepada yang terpilih",
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        12.sH,
+                        Text(
+                          "${dataCapres.noUrut}, ${dataCapres.nama}",
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        12.sH,
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(300),
+                            side: BorderSide(
+                              color: ColorApp.primary,
+                              width: 3,
+                            ),
+                          ),
+                          child: ClipOval(
+                            child: Image.network(
+                              "${dataCapres.foto}",
+                              fit: BoxFit.cover,
+                              height: 200,
+                              width: 200,
+                            ),
                           ),
                         ),
-                        child: ClipOval(
-                          child: Image.network(
-                            "${dataCapres.foto}",
-                            fit: BoxFit.cover,
-                            height: 200,
-                            width: 200,
-                          ),
+                        12.sH,
+                        Text(
+                          "Dengan nilai Penggali : ${data.nilaiPengali}",
+                          style: const TextStyle(fontSize: 18),
                         ),
-                      ),
-                      12.sH,
-                      Text(
-                        "Dengan nilai Penggali : ${data.nilaiPengali}",
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      12.sH,
-                      Text(
-                        "Dengan nilai Validasi : $nilaiValidasi",
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      12.sH,
-                    ],
+                        12.sH,
+                        Text(
+                          "Dengan nilai Validasi : $nilaiValidasi",
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        12.sH,
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            } else {
+              return const EmptyState();
+            }
           },
           onEmpty: const EmptyState(),
           onLoading: const LoadingState(),

@@ -10,7 +10,7 @@ import 'package:voting_app/app/core/models/capres.dart';
 import 'package:voting_app/app/modules/pemilihan/components/detail_capres.dart';
 
 import '../../../core/models/pemilih_capres.dart';
-import '../components/cardCapres.dart';
+import '../components/card_capres.dart';
 import '../components/card_statictik.dart';
 import '../components/indicator.dart';
 import '../controllers/pemilihan_controller.dart';

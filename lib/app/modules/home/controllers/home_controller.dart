@@ -15,6 +15,7 @@ import '../../../core/models/pemilihan.dart';
 
 class HomeController extends GetxController with StateMixin<List<CapresModel>> {
   List<CapresModel> listCapresModel = [];
+  List<CapresModel> listCapresModelPeriodeIni = [];
   final cValidate = TextEditingController();
   final cMemilih = TextEditingController();
   final formKeyValidate = GlobalKey<FormState>();
@@ -111,8 +112,14 @@ class HomeController extends GetxController with StateMixin<List<CapresModel>> {
         listCapresModel.sort(
           (a, b) => a.noUrut!.compareTo(b.noUrut!),
         );
+        listCapresModelPeriodeIni = listCapresModel
+            .where(
+              (e) => e.isPeriode == true,
+            )
+            .toList();
         log('${listCapresModel.length}', name: 'Capres');
-        change(listCapresModel, status: RxStatus.success());
+        log('${listCapresModelPeriodeIni.length}', name: 'Capres periode ini');
+        change(listCapresModelPeriodeIni, status: RxStatus.success());
       } else {
         log('Kosong', name: 'Capres');
         change([], status: RxStatus.empty());

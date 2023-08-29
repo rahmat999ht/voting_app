@@ -14,6 +14,7 @@ class CapresModel {
   List<dynamic>? visi;
   List<dynamic>? misi;
   String? pass;
+  bool? isPeriode;
   CapresModel({
     this.id,
     required this.stb,
@@ -25,6 +26,7 @@ class CapresModel {
     required this.visi,
     required this.misi,
     required this.pass,
+    required this.isPeriode,
   });
 
   Map<String, dynamic> toMap() {
@@ -39,6 +41,7 @@ class CapresModel {
       'visi': visi,
       'misi': misi,
       'pass': pass,
+      'isPeriode': isPeriode,
     };
   }
 
@@ -61,6 +64,7 @@ class CapresModel {
           ? List<dynamic>.from((map['misi'] as List<dynamic>).cast<String>())
           : null,
       pass: map['pass'] != null ? map['pass'] as String : null,
+      isPeriode: map['isPeriode'] != null ? map['isPeriode'] as bool : null,
     );
   }
 

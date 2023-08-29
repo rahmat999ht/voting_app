@@ -43,6 +43,8 @@ class CardCapresPV extends StatelessWidget {
             ClipOval(
               child: Image.network(
                 "${data.foto}",
+                height: 100,
+                width: 100,
                 fit: BoxFit.cover,
               ),
             ),
