@@ -288,7 +288,7 @@ class HomeView extends GetView<HomeController> {
                       style: const TextStyle(fontSize: 20),
                     ),
                     10.sH,
-                    const Text("Apakah anda yakin memeilih ini?"),
+                    const Text("Apakah anda yakin memilih ini?"),
                   ],
                 ),
           ],

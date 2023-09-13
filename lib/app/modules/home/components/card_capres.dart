@@ -31,47 +31,84 @@ class CardCapres extends StatelessWidget {
               shape: BoxShape.rectangle,
               border: Border.all(color: ColorApp.primary),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
               children: [
-                ClipOval(
-                  child: Container(
-                    width: 75,
-                    height: 75,
-                    color: Colors.grey[200],
-                    child: Image.network(
-                      '${data.foto}',
-                      fit: BoxFit.cover,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ClipOval(
+                      child: Container(
+                        width: 75,
+                        height: 75,
+                        color: Colors.grey[200],
+                        child: Image.network(
+                          '${data.foto}',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'No. ${data.noUrut}',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'No. ${data.noUrut}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '${data.nama}',
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          
+                        ],
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        '${data.nama}',
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Spacer(),
+                    const Icon(
+                      Icons.keyboard_arrow_right_outlined,
+                      size: 40,
+                    )
+                  ],
                 ),
-                const Spacer(),
-                const Icon(
-                  Icons.keyboard_arrow_right_outlined,
-                  size: 40,
-                )
+                Text('${data.stb}', style: const TextStyle(fontSize: 16)),
+                Text('kelamin ${data.jkl}', style: const TextStyle(fontSize: 16)),
+                Text('${data.prody}', style: const TextStyle(fontSize: 16)),
+                ListTile(
+                title: const Text('Visi:'),
+                subtitle: Column(
+                  children: data.visi!.map((e) => carsVisiMisi(e)).toList(),
+                ),
+              ),
+              const Divider(),
+              ListTile(
+                title: const Text('Misi:'),
+                subtitle: Column(
+                  children: data.misi!.map((e) => carsVisiMisi(e)).toList(),
+                ),
+              ),
               ],
+              
             ),
           ),
         ),
+      ),
+    );
+  }
+  Padding carsVisiMisi(e) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.circle,
+            size: 12,
+            color: Colors.blue,
+          ),
+          Text(' $e'),
+        ],
       ),
     );
   }
