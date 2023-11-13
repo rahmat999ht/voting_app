@@ -10,9 +10,12 @@ import 'package:voting_app/app/routes/app_pages.dart';
 import '../../../core/constans/constans_app.dart';
 import '../../../core/interface/alerts/alert_actions.dart';
 import '../../../core/services/api.dart';
+import '../../../core/services/method.dart';
 import '../components/alert_value_form.dart';
 
 class LoginController extends GetxController {
+  final methodApp = MethodApp();
+
   final formKey = GlobalKey<FormState>();
   final stbC = TextEditingController();
   final passC = TextEditingController();
@@ -75,18 +78,32 @@ class LoginController extends GetxController {
         .where('stb', isEqualTo: int.parse(stbC.text))
         .where('pass', isEqualTo: passC.text)
         .get();
-    if (data.size == 0) {
-      log("data 0");
-      alertGagal();
-      return;
-    } else {
-      log("try : ${data.docs.first.id}");
+    final response = await userProvider.getUser(int.parse(stbC.text));
+    if (response.statusCode == 200) {
+      log("ada data");
+      if (data.size == 0) {
+        final mhs = response.body['data'];
+        final dataMhs = {
+          "stb": mhs['stb'],
+          "nmmhs": mhs['nmmhs'],
+          "alm": mhs['alm'],
+          "email": mhs['email'],
+          "nohp": mhs['nohp'],
+        };
+        if (sessionLoginC.text == 'Mahasiswa') {
+          methodApp.addPemilih(data: dataMhs);
+        } else {
+          methodApp.addCapres(data: dataMhs);
+        }
+      }
       final prefs = await SharedPreferences.getInstance();
       prefs.setString("sesiLogin", sesiLogin);
-      prefs.setString("idLogin", data.docs.first.id);
       Get.offAllNamed(
         Routes.DASHBOARD,
       );
+      return;
+    } else {
+      alertGagal();
     }
   }
 
@@ -109,17 +126,5 @@ class LoginController extends GetxController {
         ),
       ],
     );
-  }
-
-  @override
-  void onInit() async {
-    const stbNumber = 192581; // Ganti dengan nilai yang sesuai
-    final response = await userProvider.getUser(stbNumber);
-    if (response.statusCode == 200) {
-      log('Data berhasil diambil: ${response.body}');
-    } else {
-      log('Gagal mengambil data. Status code: ${response.statusCode}');
-    }
-    super.onInit();
   }
 }

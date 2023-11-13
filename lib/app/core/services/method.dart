@@ -14,6 +14,22 @@ class MethodApp {
         .add(data);
   }
 
+  Future addPemilih({
+    required Map<String, dynamic> data,
+  }) async {
+    await ConstansApp.firestore
+        .collection(ConstansApp.pemilihCollection)
+        .add(data);
+  }
+
+  Future addCapres({
+    required Map<String, dynamic> data,
+  }) async {
+    await ConstansApp.firestore
+        .collection(ConstansApp.capresCollection)
+        .add(data);
+  }
+
   Future updatePemilih({
     required String id,
     required Map<String, dynamic> data,
