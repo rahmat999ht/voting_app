@@ -56,12 +56,12 @@ class LoginController extends GetxController {
           final pemilih = ConstansApp.firestore.collection(
             ConstansApp.pemilihCollection,
           );
-          await iniData(pemilih, 'pemilih');
+          await iniData(collection: pemilih, sesiLogin: 'pemilih');
         } else {
           final capres = ConstansApp.firestore.collection(
             ConstansApp.capresCollection,
           );
-          await iniData(capres, 'capres');
+          await iniData(collection: capres, sesiLogin: 'capres');
         }
       }
     } catch (e) {
@@ -70,10 +70,10 @@ class LoginController extends GetxController {
     initLoading();
   }
 
-  Future iniData(
-    CollectionReference<Map<String, dynamic>> collection,
-    String sesiLogin,
-  ) async {
+  Future iniData({
+    required CollectionReference<Map<String, dynamic>> collection,
+    required String sesiLogin,
+  }) async {
     final data = await collection
         .where('stb', isEqualTo: int.parse(stbC.text))
         .where('pass', isEqualTo: passC.text)
