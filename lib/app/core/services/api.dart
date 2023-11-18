@@ -5,21 +5,9 @@ import 'package:get/get_connect/connect.dart';
 
 class MhsProvider extends GetConnect {
   // Get request
-  Future<Response> getUser(int stb) =>
-      get('https://service.undipa.ac.id/dtmhs.php?user=$stb&api=071994');
+  Future<Response> getUser(int stb, int pass) => get(
+      'https://service.undipa.ac.id/loginmhs.php?user=$stb&pass=$pass&api=071994');
 }
-
-// {
-//   "data": [
-//     {
-//       "stb": "191058",
-//       "nmmhs": "NAHDA NURUL AIN",
-//       "alm": "DESA PONGGIHA",
-//       "email": "nahdanurulain01@gmail.com",
-//       "nohp": ""
-//     }
-//   ]
-// }
 
 class MhsModel {
   final String stb;

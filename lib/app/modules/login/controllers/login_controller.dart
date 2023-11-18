@@ -78,11 +78,14 @@ class LoginController extends GetxController {
         .where('stb', isEqualTo: int.parse(stbC.text))
         .where('pass', isEqualTo: passC.text)
         .get();
-    final response = await userProvider.getUser(int.parse(stbC.text));
+    final response = await userProvider.getUser(
+      int.parse(stbC.text),
+      int.parse(passC.text),
+    );
     if (response.statusCode == 200) {
       log("ada data");
       if (data.size == 0) {
-        final mhs = response.body['data'];
+        final mhs = response.body['data'][0];
         final dataMhs = {
           "stb": mhs['stb'],
           "nmmhs": mhs['nmmhs'],

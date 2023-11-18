@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:voting_app/app/core/models/capres.dart';
 import 'package:voting_app/app/core/models/pemilih.dart';
+import 'package:voting_app/app/core/services/api.dart';
 
 import '../constans/constans_app.dart';
 import '../models/pemilihan.dart';
@@ -71,5 +74,27 @@ class MethodApp {
               CapresModel.fromDocumentSnapshot(snapshot),
           toFirestore: (value, options) => value.toMap(),
         );
+  }
+
+  Future<MhsModel?> getUser(String stb, String pass) async {
+    final mhsProvider = MhsProvider();
+    final response = await mhsProvider.getUser(
+      int.parse(stb),
+      int.parse(pass),
+    );
+    if (response.statusCode == 200) {
+      log("ada data");
+      final mhs = response.body['data'][0];
+      final dataMhs = MhsModel(
+        stb: mhs['stb'],
+        nmmhs: mhs['nmmhs'],
+        alm: mhs['alm'],
+        email: mhs['email'],
+        nohp: mhs['nohp'],
+      );
+      return dataMhs;
+    } else {
+      return null;
+    }
   }
 }
