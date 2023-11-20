@@ -120,7 +120,7 @@ class LoginController extends GetxController {
         toDasboard(sesiLogin, documentId);
       }
     } else {
-      alertGagal('anda tidak terdaftar');
+      alertGagal('anda tidak terdaftar di siaka');
     }
   }
 
