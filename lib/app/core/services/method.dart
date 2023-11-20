@@ -80,7 +80,7 @@ class MethodApp {
     final mhsProvider = MhsProvider();
     final response = await mhsProvider.getUser(
       int.parse(stb),
-      int.parse(pass),
+      pass,
     );
     if (response.statusCode == 200) {
       log("ada data");

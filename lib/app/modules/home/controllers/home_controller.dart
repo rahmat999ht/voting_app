@@ -60,8 +60,6 @@ class HomeController extends GetxController with StateMixin<List<CapresModel>> {
       final data = PemilihModel(
         stb: pemilih.stb!,
         nama: pemilih.nama!,
-        jkl: pemilih.jkl,
-        prody: pemilih.prody,
         pass: pemilih.pass,
         isMemilih: true,
         isAktif: pemilih.isAktif,

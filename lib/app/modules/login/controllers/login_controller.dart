@@ -9,6 +9,7 @@ import 'package:voting_app/app/routes/app_pages.dart';
 
 import '../../../core/constans/constans_app.dart';
 import '../../../core/interface/alerts/alert_actions.dart';
+import '../../../core/models/pemilih.dart';
 import '../../../core/services/api.dart';
 import '../../../core/services/method.dart';
 import '../components/alert_value_form.dart';
@@ -74,28 +75,32 @@ class LoginController extends GetxController {
     required CollectionReference<Map<String, dynamic>> collection,
     required String sesiLogin,
   }) async {
-    final data = await collection
-        .where('stb', isEqualTo: int.parse(stbC.text))
-        .where('pass', isEqualTo: passC.text)
-        .get();
     final response = await userProvider.getUser(
       int.parse(stbC.text),
-      int.parse(passC.text),
+      passC.text,
     );
+    log(response.toString());
     if (response.statusCode == 200) {
+      final data = await collection
+          .where('stb', isEqualTo: int.parse(stbC.text))
+          .where('pass', isEqualTo: passC.text)
+          .get();
       log("ada data");
       if (data.size == 0) {
+        log("akun belum terdaftar");
         final mhs = response.body['data'][0];
-        final dataMhs = {
-          "stb": mhs['stb'],
-          "nmmhs": mhs['nmmhs'],
-          "alm": mhs['alm'],
-          "email": mhs['email'],
-          "nohp": mhs['nohp'],
-        };
+        final dataMhs = PemilihModel(
+          stb: mhs['stb'],
+          nama: mhs['nmmhs'],
+          pass: passC.text,
+          isMemilih: false,
+          isAktif: true,
+        ).toMap();
         if (sessionLoginC.text == 'Mahasiswa') {
+          log("add data mahasiswa");
           methodApp.addPemilih(data: dataMhs);
         } else {
+          log("add data capres");
           methodApp.addCapres(data: dataMhs);
         }
       }
@@ -104,7 +109,7 @@ class LoginController extends GetxController {
       Get.offAllNamed(
         Routes.DASHBOARD,
       );
-      return;
+      // return;
     } else {
       alertGagal();
     }
