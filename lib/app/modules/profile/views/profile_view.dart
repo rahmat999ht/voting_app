@@ -78,18 +78,6 @@ class ProfileView extends GetView<ProfileController> {
                           style: const TextStyle(fontSize: 16)),
                     ),
                     const Divider(),
-                    ListTile(
-                      title: const Text('Jenis kelamin :'),
-                      subtitle: Text('${state.jkl}',
-                          style: const TextStyle(fontSize: 16)),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text('Jurusan :'),
-                      subtitle: Text('${state.prody}',
-                          style: const TextStyle(fontSize: 16)),
-                    ),
-                    const Divider(),
                     if (state.isMemilih == true)
                       const ListTile(
                         title: Text('Status Memilih:'),
