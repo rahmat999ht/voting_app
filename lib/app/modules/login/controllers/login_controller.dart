@@ -111,6 +111,7 @@ class LoginController extends GetxController {
           log(documentId);
           toDasboard(sesiLogin, documentId);
         } else {
+          alertGagal('Akun anda tidak terdaftar sebagai capres');
           // methodApp.addCapres(data: dataMhs);
         }
       } else {
@@ -119,7 +120,7 @@ class LoginController extends GetxController {
         toDasboard(sesiLogin, documentId);
       }
     } else {
-      alertGagal();
+      alertGagal('anda tidak terdaftar');
     }
   }
 
@@ -132,10 +133,11 @@ class LoginController extends GetxController {
     );
   }
 
-  alertGagal() {
+  alertGagal(String message) {
     alertActions(
       'Info',
-      'anda tidak terdaftar',
+      message,
+      // 'anda tidak terdaftar',
       [
         TextButton(
           child: const Text(
