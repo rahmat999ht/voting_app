@@ -6,6 +6,7 @@ import 'package:voting_app/app/core/models/pemilih.dart';
 import 'package:voting_app/app/core/services/api.dart';
 
 import '../constans/constans_app.dart';
+import '../models/mhs.dart';
 import '../models/pemilihan.dart';
 
 class MethodApp {
