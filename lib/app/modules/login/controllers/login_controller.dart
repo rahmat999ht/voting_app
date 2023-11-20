@@ -105,11 +105,8 @@ class LoginController extends GetxController {
         ).toMap();
         if (sessionLoginC.text == 'Mahasiswa') {
           log("add data mahasiswa");
-
           final docRef = await methodApp.addPemilih(data: dataMhs);
-          String documentId = docRef.id;
-          log(documentId);
-          toDasboard(sesiLogin, documentId);
+          await toDasboard(sesiLogin, docRef.id);
         } else {
           alertGagal('Akun anda tidak terdaftar sebagai capres');
           // methodApp.addCapres(data: dataMhs);
@@ -124,7 +121,7 @@ class LoginController extends GetxController {
     }
   }
 
-  void toDasboard(String session, String idLogin) async {
+  Future toDasboard(String session, String idLogin) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString("sesiLogin", session);
     prefs.setString("idLogin", idLogin);

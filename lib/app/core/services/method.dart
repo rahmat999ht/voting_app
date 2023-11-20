@@ -18,10 +18,10 @@ class MethodApp {
         .add(data);
   }
 
-  Future addPemilih({
+  Future<DocumentReference> addPemilih({
     required Map<String, dynamic> data,
   }) async {
-    await ConstansApp.firestore
+    return await ConstansApp.firestore
         .collection(ConstansApp.pemilihCollection)
         .add(data);
   }
