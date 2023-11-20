@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -88,9 +89,15 @@ class LoginController extends GetxController {
       log("ada data");
       if (data.size == 0) {
         log("akun belum terdaftar");
-        final mhs = response.body['data'][0];
+        final body = response.body;
+        final map = json.decode(body);
+        final mhs = map['data'][0];
+
+        log(body.toString(), name: 'body');
+        log(map.toString(), name: 'map');
+        log(mhs.toString(), name: 'mhs');
         final dataMhs = PemilihModel(
-          stb: mhs['stb'],
+          stb: int.parse(mhs['stb']),
           nama: mhs['nmmhs'],
           pass: passC.text,
           isMemilih: false,
@@ -98,21 +105,31 @@ class LoginController extends GetxController {
         ).toMap();
         if (sessionLoginC.text == 'Mahasiswa') {
           log("add data mahasiswa");
-          methodApp.addPemilih(data: dataMhs);
+
+          final docRef = await methodApp.addPemilih(data: dataMhs);
+          String documentId = docRef.id;
+          log(documentId);
+          toDasboard(sesiLogin, documentId);
         } else {
-          log("add data capres");
-          methodApp.addCapres(data: dataMhs);
+          // methodApp.addCapres(data: dataMhs);
         }
+      } else {
+        String documentId = data.docs.first.id;
+        log(documentId);
+        toDasboard(sesiLogin, documentId);
       }
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString("sesiLogin", sesiLogin);
-      Get.offAllNamed(
-        Routes.DASHBOARD,
-      );
-      // return;
     } else {
       alertGagal();
     }
+  }
+
+  void toDasboard(String session, String idLogin) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("sesiLogin", session);
+    prefs.setString("idLogin", idLogin);
+    Get.offAllNamed(
+      Routes.DASHBOARD,
+    );
   }
 
   alertGagal() {
